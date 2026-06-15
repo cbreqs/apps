@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Apps by REQS TECH — practical tools built for real problems." />
+  <title>apps · reqs.tech</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+    button { font-family: inherit; cursor: pointer; }
+
+    :root {
+      --teal:        #2E7D7A;
+      --teal-bright: #4AADAA;
+      --terra:       #C4533A;
+      --terra-bright:#E07055;
+      --cream:       #EDE8DC;
+      --navy-deep:   #1A2535;
+      --serif:       'Lora', Georgia, serif;
+      --sans:        'DM Sans', sans-serif;
+    }
+
+    [data-theme="dark"] {
+      --bg:          #111418;
+      --bg2:         #181D24;
+      --bg3:         #1E2530;
+      --surface:     #222A36;
+      --border:      rgba(255,255,255,0.07);
+      --border-mid:  rgba(255,255,255,0.13);
+      --text:        #EDE8DC;
+      --text-mid:    rgba(237,232,220,0.62);
+      --text-dim:    rgba(237,232,220,0.35);
+      --accent:      #4AADAA;
+      --accent2:     #E07055;
+      --tag-bg:      rgba(74,173,170,0.09);
+      --tag-border:  rgba(74,173,170,0.22);
+    }
+
+    [data-theme="light"] {
+      --bg:          #EEEAE0;
+      --bg2:         #E8E3D8;
+      --bg3:         #E0DAD0;
+      --surface:     #F4F0E8;
+      --border:      rgba(26,37,53,0.09);
+      --border-mid:  rgba(26,37,53,0.15);
+      --text:        #1A2535;
+      --text-mid:    #4A5568;
+      --text-dim:    #9A9A9A;
+      --accent:      #2E7D7A;
+      --accent2:     #C4533A;
+      --tag-bg:      rgba(46,125,122,0.07);
+      --tag-border:  rgba(46,125,122,0.2);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      transition: background 0.3s ease, color 0.3s ease;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.3s;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+      font-size: 13px;
+    }
+
+    .nav-home {
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 14px;
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 1px solid var(--accent);
+      padding-bottom: 1px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .nav-home:hover { color: var(--accent); }
+
+    .nav-sep { color: var(--border-mid); font-size: 14px; }
+
+    .nav-current {
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-mid);
+    }
+
+    .theme-btn {
+      background: none;
+      border: 1px solid var(--border-mid);
+      border-radius: 999px;
+      padding: 6px 15px;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .theme-btn:hover { color: var(--text); }
+
+    /* ── main ── */
+    main {
+      flex: 1;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 5rem 2rem 6rem;
+      width: 100%;
+    }
+
+    /* ── page header ── */
+    .page-header { margin-bottom: 3.5rem; }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+      animation: fadeUp 0.45s ease both;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 1px;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .page-header h1 {
+      font-family: var(--serif);
+      font-size: clamp(1.9rem, 4vw, 2.75rem);
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--text);
+      margin-bottom: 0.6rem;
+      animation: fadeUp 0.45s 0.08s ease both;
+    }
+
+    .page-sub {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--text-mid);
+      line-height: 1.7;
+      animation: fadeUp 0.45s 0.16s ease both;
+    }
+
+    /* ── app list ── */
+    .app-list {
+      border-top: 1px solid var(--border);
+    }
+
+    .app-card {
+      display: block;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--border);
+      text-decoration: none;
+      color: var(--text);
+      transition: background 0.2s;
+    }
+
+    .app-card-inner {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .app-card:hover .app-name { color: var(--accent); }
+
+    .app-meta {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .app-name {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      font-weight: 400;
+      transition: color 0.2s;
+    }
+
+    .app-tag {
+      font-size: 11px;
+      color: var(--accent);
+      padding: 3px 10px;
+      border: 1px solid var(--tag-border);
+      background: var(--tag-bg);
+      border-radius: 999px;
+      white-space: nowrap;
+      letter-spacing: 0.04em;
+    }
+
+    .app-desc {
+      font-size: 14px;
+      color: var(--text-mid);
+      line-height: 1.65;
+      max-width: 500px;
+    }
+
+    .app-platform {
+      margin-top: 0.9rem;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--text-mid);
+    }
+
+    .app-arrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--bg);
+      background: var(--accent);
+      padding: 10px 18px;
+      border-radius: 2px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      align-self: center;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .app-card:hover .app-arrow {
+      background: var(--accent2);
+      transform: translateX(3px);
+    }
+
+    /* ── footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.25rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .footer-text {
+      font-size: 11px;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-links a {
+      font-size: 11px;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--accent); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 680px) {
+      nav { padding: 0 1.25rem; }
+      main { padding: 3.5rem 1.25rem 5rem; }
+      footer { padding: 1.25rem; justify-content: center; text-align: center; }
+      .app-card-inner { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-left">
+      <a class="nav-home" href="https://reqs.tech">reqs.tech</a>
+      <span class="nav-sep">/</span>
+      <span class="nav-current">apps</span>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()">light / dark</button>
+  </nav>
+
+  <main>
+    <header class="page-header">
+      <p class="hero-eyebrow">REQS TECH · TYPICAL LLC</p>
+      <h1>Apps</h1>
+      <p class="page-sub">Practical tools.</p>
+    </header>
+
+    <div class="app-list">
+
+      <a class="app-card" href="/mogas">
+        <div class="app-card-inner">
+          <div>
+            <div class="app-meta">
+              <span class="app-name">MOgas MOmoney</span>
+              <span class="app-tag">Android</span>
+              <span class="app-tag">Missouri</span>
+            </div>
+            <p class="app-desc">
+              Track motor fuel purchases and calculate your Missouri fuel tax refund under
+              RSMo&nbsp;§&nbsp;142.824. Everything stays on your device — no account, no cloud, no catch.
+            </p>
+            <p class="app-platform">Google Play · Free</p>
+          </div>
+          <span class="app-arrow">View app →</span>
+        </div>
+      </a>
+
+      <a class="app-card" href="/flexagenda">
+        <div class="app-card-inner">
+          <div>
+            <div class="app-meta">
+              <span class="app-name">FlexAgenda</span>
+              <span class="app-tag">Web</span>
+              <span class="app-tag">Booking</span>
+              <span class="app-tag">Multi-tenant</span>
+            </div>
+            <p class="app-desc">
+              A booking platform for businesses that don't fit the cookie-cutter mold.
+              Capacity-based events or appointment-style scheduling — branded per client,
+              isolated per tenant, no backend to manage.
+            </p>
+            <p class="app-platform">Early development · Beta clients welcome</p>
+          </div>
+          <span class="app-arrow">View app →</span>
+        </div>
+      </a>
+
+    </div>
+  </main>
+
+  <footer>
+    <span class="footer-text">© 2026 TYPICAL LLC · REQS TECH</span>
+    <nav class="footer-links">
+      <a href="https://reqs.tech">reqs.tech</a>
+      <a href="mailto:privacy@reqs.tech">contact</a>
+    </nav>
+  </footer>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      html.setAttribute('data-theme', html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    }
+  </script>
+
+</body>
+</html>
