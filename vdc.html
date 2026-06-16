@@ -1,0 +1,631 @@
+---
+layout: null
+---
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="BIM/VDC Tools by REQS TECH — PyRevit extensions and Dynamo graphs for more efficient Revit workflows. Cloud model GUID tools, multi-sheet printing, element ID parameters." />
+  <meta property="og:title" content="BIM/VDC Tools · REQS TECH" />
+  <meta property="og:description" content="PyRevit and Dynamo tools built around real project friction in BIM and VDC environments." />
+  <title>BIM/VDC Tools · apps.reqs.tech</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+    button { font-family: inherit; cursor: pointer; }
+
+    :root {
+      --serif: 'Lora', Georgia, serif;
+      --sans:  'DM Sans', sans-serif;
+    }
+
+    [data-theme="dark"] {
+      --bg:          #111418;
+      --bg2:         #181D24;
+      --surface:     #222A36;
+      --border:      rgba(255,255,255,0.07);
+      --border-mid:  rgba(255,255,255,0.13);
+      --text:        #EDE8DC;
+      --text-mid:    rgba(237,232,220,0.62);
+      --text-dim:    rgba(237,232,220,0.35);
+      --accent:      #4AADAA;
+      --accent2:     #E07055;
+      --tag-bg:      rgba(74,173,170,0.09);
+      --tag-border:  rgba(74,173,170,0.22);
+      --well-bg:     #181D24;
+      --grid-bg:     rgba(255,255,255,0.03);
+    }
+
+    [data-theme="light"] {
+      --bg:          #EEEAE0;
+      --bg2:         #E8E3D8;
+      --surface:     #F4F0E8;
+      --border:      rgba(26,37,53,0.09);
+      --border-mid:  rgba(26,37,53,0.15);
+      --text:        #1A2535;
+      --text-mid:    #4A5568;
+      --text-dim:    #9A9A9A;
+      --accent:      #2E7D7A;
+      --accent2:     #C4533A;
+      --tag-bg:      rgba(46,125,122,0.07);
+      --tag-border:  rgba(46,125,122,0.2);
+      --well-bg:     #E8E3D8;
+      --grid-bg:     rgba(26,37,53,0.03);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      transition: background 0.3s ease, color 0.3s ease;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── nav ── */
+    nav.topnav {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.3s;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+
+    .nav-crumb {
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-crumb:hover { color: var(--accent); }
+    .nav-crumb:first-child {
+      color: var(--text);
+      font-weight: 600;
+      border-bottom: 1px solid var(--accent);
+      padding-bottom: 1px;
+    }
+    .nav-crumb:first-child:hover { color: var(--accent); }
+
+    .nav-sep { color: var(--border-mid); font-size: 14px; }
+
+    .nav-current {
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-mid);
+    }
+
+    .theme-btn {
+      background: none;
+      border: 1px solid var(--border-mid);
+      border-radius: 999px;
+      padding: 6px 15px;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      transition: color 0.2s;
+    }
+    .theme-btn:hover { color: var(--text); }
+
+    /* ── main ── */
+    main { flex: 1; }
+
+    /* ── hero ── */
+    .hero {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 5.5rem 2rem 4rem;
+    }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+      animation: fadeUp 0.45s ease both;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 1px;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.3rem, 5.5vw, 3.5rem);
+      font-weight: 400;
+      line-height: 1.15;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+      animation: fadeUp 0.45s 0.08s ease both;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent2);
+    }
+
+    .hero-desc {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--text-mid);
+      max-width: 560px;
+      line-height: 1.8;
+      margin-top: 1.5rem;
+      margin-bottom: 0;
+      animation: fadeUp 0.45s 0.16s ease both;
+    }
+
+    /* ── divider ── */
+    .divider { max-width: 860px; margin: 0 auto; padding: 0 2rem; }
+    .divider hr { border: none; border-top: 1px solid var(--border); }
+
+    /* ── tool section shared ── */
+    .tool-section {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 3.75rem 2rem;
+    }
+
+    .section-eyebrow {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 0.6rem;
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: 1.65rem;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 0.6rem;
+    }
+
+    .section-desc {
+      font-size: 14px;
+      color: var(--text-mid);
+      max-width: 540px;
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+
+    /* ── five-lines motif ── */
+    .five-lines {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      margin-bottom: 1.75rem;
+    }
+    .five-lines span {
+      display: block;
+      height: 1px;
+      background: var(--accent);
+      opacity: 0.3;
+      width: 100%;
+    }
+
+    /* ── tool grid ── */
+    .tool-grid {
+      display: grid;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .tool-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .tool-grid.cols-1 { grid-template-columns: 1fr; }
+
+    .tool-card {
+      background: var(--bg);
+      padding: 1.6rem 1.4rem;
+      transition: background 0.2s;
+    }
+    .tool-card:hover { background: var(--surface); }
+
+    .tool-num {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.13em;
+      color: var(--text-dim);
+      margin-bottom: 0.65rem;
+    }
+
+    .tool-name {
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--accent2);
+      line-height: 1.3;
+      margin-bottom: 0.55rem;
+    }
+
+    .tool-desc {
+      font-size: 13px;
+      color: var(--text-mid);
+      line-height: 1.65;
+      margin-bottom: 0.85rem;
+    }
+
+    .tool-tags {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .tool-tag {
+      font-size: 10px;
+      color: var(--accent);
+      padding: 2px 8px;
+      border: 1px solid var(--tag-border);
+      background: var(--tag-bg);
+      border-radius: 999px;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+
+    .tool-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+      border: 1px solid var(--border-mid);
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .tool-icon img {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* ── who it's for / context section ── */
+    .context {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 3.75rem 2rem;
+      transition: background 0.3s;
+    }
+
+    .context-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .context-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      padding-top: 3px;
+    }
+
+    .context-body p {
+      font-size: 15px;
+      color: var(--text-mid);
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+    .context-body p:last-child { margin-bottom: 0; }
+    .context-body strong { color: var(--text); font-weight: 500; }
+
+    code {
+      font-family: 'Courier New', monospace;
+      font-size: 0.85em;
+      color: var(--accent);
+      background: var(--tag-bg);
+      padding: 1px 6px;
+      border-radius: 2px;
+    }
+
+    /* ── page links ── */
+    .page-links {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 2rem 4rem;
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .page-link {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border-mid);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .page-link:hover { color: var(--accent); border-color: var(--accent); }
+
+    /* ── footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.25rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .footer-text {
+      font-size: 11px;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a {
+      font-size: 11px;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--accent); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 680px) {
+      nav.topnav { padding: 0 1.25rem; }
+      .hero { padding: 3.75rem 1.25rem 3rem; }
+      .tool-section { padding: 2.75rem 1.25rem; }
+      .tool-grid.cols-3 { grid-template-columns: 1fr; }
+      .context { padding: 2.75rem 1.25rem; }
+      .context-inner { grid-template-columns: 1fr; gap: 0.75rem; }
+      .page-links { padding: 0 1.25rem 3.5rem; }
+      footer { padding: 1.25rem; justify-content: center; text-align: center; }
+    }
+
+    @media (min-width: 681px) and (max-width: 860px) {
+      .tool-grid.cols-3 { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="topnav">
+    <div class="nav-left">
+      <a class="nav-crumb" href="https://reqs.tech">reqs.tech</a>
+      <span class="nav-sep">/</span>
+      <a class="nav-crumb" href="/">apps</a>
+      <span class="nav-sep">/</span>
+      <span class="nav-current">BIM/VDC</span>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()">light / dark</button>
+  </nav>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero">
+      <p class="hero-eyebrow">REQS TECH · Autodesk Revit · PyRevit · Dynamo</p>
+      <h1>BIM/VDC Tools.<br><em>Less friction.</em></h1>
+      <p class="hero-desc">
+        PyRevit extensions and Dynamo graphs built around real workflow problems
+        in BIM and VDC environments — tools that exist because the out-of-the-box
+        options weren't fast enough, precise enough, or just weren't there.
+      </p>
+    </section>
+
+    <div class="divider"><hr /></div>
+
+    <!-- PyRevit section -->
+    <section class="tool-section">
+      <p class="section-eyebrow">PyRevit Extensions</p>
+      <h2 class="section-title">PyRevit</h2>
+      <p class="section-desc">
+        PyRevit is an open-source framework for building Revit add-ins using Python.
+        These tools extend the default Revit ribbon with commands that solve specific
+        pain points in cloud-connected BIM workflows.
+      </p>
+
+      <div class="five-lines">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+
+      <div class="tool-grid cols-3">
+
+        <div class="tool-card">
+          <div class="tool-icon"><img src="assets/icon_get.png" alt="GUID Capture icon" /></div>
+          <p class="tool-num">01</p>
+          <p class="tool-name">Cloud Model GUID Capture</p>
+          <p class="tool-desc">
+            Reads and surfaces the GUID from a cloud-hosted Revit model (ACC / BIM 360).
+            One click — no digging through project properties or API calls.
+          </p>
+          <div class="tool-tags">
+            <span class="tool-tag">PyRevit</span>
+            <span class="tool-tag">ACC</span>
+            <span class="tool-tag">BIM 360</span>
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon"><img src="assets/icon_open.png" alt="GUID Quick-Open icon" /></div>
+          <p class="tool-num">02</p>
+          <p class="tool-name">GUID Quick-Open</p>
+          <p class="tool-desc">
+            Saves a captured GUID so the model can be opened directly — bypassing
+            the hub and project browser entirely. Useful when you're switching
+            between multiple cloud models across different hubs.
+          </p>
+          <div class="tool-tags">
+            <span class="tool-tag">PyRevit</span>
+            <span class="tool-tag">ACC</span>
+            <span class="tool-tag">BIM 360</span>
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon"><img src="assets/icon_sets.png" alt="Multi-Sheet Print icon" /></div>
+          <p class="tool-num">03</p>
+          <p class="tool-name">Multi-Sheet Print</p>
+          <p class="tool-desc">
+            Prints multiple sheet sets in a single run. Select your sets, set your
+            printer config, and walk away — no cycling through print dialogs
+            one sheet set at a time.
+          </p>
+          <div class="tool-tags">
+            <span class="tool-tag">PyRevit</span>
+            <span class="tool-tag">Sheets</span>
+            <span class="tool-tag">Print</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="divider"><hr /></div>
+
+    <!-- Dynamo section -->
+    <section class="tool-section">
+      <p class="section-eyebrow">Dynamo Graphs</p>
+      <h2 class="section-title">Dynamo</h2>
+      <p class="section-desc">
+        Visual programming for Revit. These graphs automate parameter management
+        and data enrichment tasks that would otherwise require manual entry
+        or custom API development.
+      </p>
+
+      <div class="five-lines">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+
+      <div class="tool-grid cols-1">
+
+        <div class="tool-card">
+          <p class="tool-num">01</p>
+          <p class="tool-name">Element ID Parameter</p>
+          <p class="tool-desc">
+            Creates a shared <code>Element ID</code> parameter and populates it with each
+            element's Revit-assigned ID — making that value available as a schedulable,
+            exportable field. Useful for coordination, clash tracking, and connecting
+            Revit data to external systems where the internal element ID is the key.
+          </p>
+          <div class="tool-tags">
+            <span class="tool-tag">Dynamo</span>
+            <span class="tool-tag">Parameters</span>
+            <span class="tool-tag">Schedules</span>
+            <span class="tool-tag">Data</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="divider"><hr /></div>
+
+    <!-- Context / who it's for -->
+    <section class="context">
+      <div class="context-inner">
+        <p class="context-label">Context</p>
+        <div class="context-body">
+          <p>
+            These tools come out of day-to-day work as a <strong>BIM/VDC Project
+            Coordinator</strong> on large engineering projects — the kind of environment
+            where Revit is the hub of everything, ACC is the delivery layer, and the
+            gap between what the software does natively and what the workflow actually
+            needs is where time gets lost.
+          </p>
+          <p>
+            PyRevit makes it possible to close those gaps without a full C# add-in.
+            Dynamo handles the parameter and data side. Neither requires the end user
+            to touch code — they install, they click, they move on.
+          </p>
+          <p>
+            More tools in development. If you're working in a similar environment
+            and have a specific friction point, reach out.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Page nav -->
+    <div class="page-links">
+      <a class="page-link" href="/">All apps</a>
+      <a class="page-link" href="https://reqs.tech">reqs.tech</a>
+      <a class="page-link" href="mailto:singularity@reqs.tech">Contact</a>
+    </div>
+
+  </main>
+
+  <footer>
+    <span class="footer-text">© 2026 TYPICAL LLC · REQS TECH · BIM/VDC Tools</span>
+    <nav class="footer-links">
+      <a href="https://reqs.tech">reqs.tech</a>
+      <a href="mailto:singularity@reqs.tech">contact</a>
+    </nav>
+  </footer>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      html.setAttribute('data-theme', html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    }
+  </script>
+
+</body>
+</html>
