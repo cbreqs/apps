@@ -4,731 +4,665 @@ layout: null
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="MOgas MOmoney — Missouri motor fuel tax refund tracker for Android. Track purchases, calculate refunds, prefill Form 4923-H. Everything stays on your device." />
-  <meta property="og:title" content="MOgas MOmoney · REQS TECH" />
-  <meta property="og:description" content="Missouri motor fuel tax refund tracker. No account. No cloud. No catch." />
-  <title>MOgas MOmoney · apps.reqs.tech</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    img { display: block; max-width: 100%; }
-    a { color: inherit; }
-    button { font-family: inherit; cursor: pointer; }
-
-    :root {
-      --serif: 'Lora', Georgia, serif;
-      --sans:  'DM Sans', sans-serif;
-    }
-
-    [data-theme="dark"] {
-      --bg:          #111418;
-      --bg2:         #181D24;
-      --surface:     #222A36;
-      --border:      rgba(255,255,255,0.07);
-      --border-mid:  rgba(255,255,255,0.13);
-      --text:        #EDE8DC;
-      --text-mid:    rgba(237,232,220,0.62);
-      --text-dim:    rgba(237,232,220,0.35);
-      --accent:      #4AADAA;
-      --accent2:     #E07055;
-      --tag-bg:      rgba(74,173,170,0.09);
-      --tag-border:  rgba(74,173,170,0.22);
-      --well-bg:     #181D24;
-      --placeholder: #1E2530;
-      --grid-bg:     rgba(255,255,255,0.03);
-    }
-
-    [data-theme="light"] {
-      --bg:          #EEEAE0;
-      --bg2:         #E8E3D8;
-      --surface:     #F4F0E8;
-      --border:      rgba(26,37,53,0.09);
-      --border-mid:  rgba(26,37,53,0.15);
-      --text:        #1A2535;
-      --text-mid:    #4A5568;
-      --text-dim:    #9A9A9A;
-      --accent:      #2E7D7A;
-      --accent2:     #C4533A;
-      --tag-bg:      rgba(46,125,122,0.07);
-      --tag-border:  rgba(46,125,122,0.2);
-      --well-bg:     #E8E3D8;
-      --placeholder: #E0DAD0;
-      --grid-bg:     rgba(26,37,53,0.03);
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: var(--sans);
-      background: var(--bg);
-      color: var(--text);
-      font-size: 16px;
-      line-height: 1.65;
-      -webkit-font-smoothing: antialiased;
-      transition: background 0.3s ease, color 0.3s ease;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* ── nav ── */
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 200;
-      background: var(--bg);
-      border-bottom: 1px solid var(--border);
-      padding: 0 2rem;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      transition: background 0.3s;
-    }
-
-    .nav-left {
-      display: flex;
-      align-items: baseline;
-      gap: 0.5rem;
-    }
-
-    .nav-crumb {
-      font-size: 14px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .nav-crumb:hover { color: var(--accent); }
-    .nav-crumb:first-child {
-      color: var(--text);
-      font-weight: 600;
-      border-bottom: 1px solid var(--accent);
-      padding-bottom: 1px;
-    }
-    .nav-crumb:first-child:hover { color: var(--accent); }
-
-    .nav-sep { color: var(--border-mid); font-size: 14px; }
-
-    .nav-current {
-      font-size: 14px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-mid);
-    }
-
-    .theme-btn {
-      background: none;
-      border: 1px solid var(--border-mid);
-      border-radius: 999px;
-      padding: 6px 15px;
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      transition: color 0.2s;
-    }
-    .theme-btn:hover { color: var(--text); }
-
-    /* ── main ── */
-    main { flex: 1; }
-
-    /* ── hero ── */
-    .hero {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 5.5rem 2rem 4rem;
-    }
-
-    .hero-eyebrow {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 1.25rem;
-      animation: fadeUp 0.45s ease both;
-    }
-    .hero-eyebrow::before {
-      content: '';
-      display: block;
-      width: 20px;
-      height: 1px;
-      background: var(--accent);
-      flex-shrink: 0;
-    }
-
-    .hero h1 {
-      font-family: var(--serif);
-      font-size: clamp(2.3rem, 5.5vw, 3.5rem);
-      font-weight: 400;
-      line-height: 1.15;
-      color: var(--text);
-      margin-bottom: 0.3rem;
-      animation: fadeUp 0.45s 0.08s ease both;
-    }
-
-    .hero h1 em {
-      font-style: italic;
-      color: var(--accent2);
-    }
-
-    .hero-desc {
-      font-size: 16px;
-      font-weight: 300;
-      color: var(--text-mid);
-      max-width: 540px;
-      line-height: 1.8;
-      margin-top: 1.5rem;
-      margin-bottom: 2.25rem;
-      animation: fadeUp 0.45s 0.16s ease both;
-    }
-
-    .hero-cta-row {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-      animation: fadeUp 0.45s 0.22s ease both;
-    }
-
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-family: var(--sans);
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--bg);
-      background: var(--accent);
-      padding: 13px 26px;
-      text-decoration: none;
-      border-radius: 2px;
-      transition: background 0.2s;
-    }
-    .btn-primary:hover { background: var(--accent2); }
-    .btn-primary .arrow { transition: transform 0.2s; }
-    .btn-primary:hover .arrow { transform: translateX(4px); }
-
-    .cta-note {
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-    }
-
-    /* ── divider ── */
-    .divider { max-width: 860px; margin: 0 auto; padding: 0 2rem; }
-    .divider hr { border: none; border-top: 1px solid var(--border); }
-
-    /* ── section eyebrow ── */
-    .section-eyebrow {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      margin-bottom: 1.5rem;
-    }
-
-    .section-title {
-      font-family: var(--erif);
-      font-size: 1.65rem;
-      font-weight: 400;
-      color: var(--text);
-      margin-bottom: 2rem;
-    }
-
-    /* ── screenshots ── */
-    .screenshots {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 3.75rem 2rem;
-    }
-
-    .screenshots-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 1rem;
-      max-width: 680px;
-    }
-
-    .screenshot-slot {
-      background: var(--placeholder);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      aspect-ratio: 9 / 19.5;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-
-    .screenshot-slot img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-
-    .ph-label {
-      font-size: 10px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      text-align: center;
-      line-height: 1.8;
-    }
-
-    /* ── features — numbered grid matching FlexAgenda ── */
-    .features {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 3.75rem 2rem;
-    }
-
-    /* five-lines motif */
-    .five-lines {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-      margin-bottom: 1.75rem;
-    }
-    .five-lines span {
-      display: block;
-      height: 1px;
-      background: var(--accent);
-      opacity: 0.3;
-      width: 100%;
-    }
-
-    .feature-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      overflow: hidden;
-    }
-
-    .feature-card {
-      background: var(--bg);
-      padding: 1.6rem 1.4rem;
-      transition: background 0.2s;
-    }
-    .feature-card:hover { background: var(--surface); }
-
-    /* sixth card — privacy as the {five} moment */
-    .feature-card.sixth {
-      background: var(--bg2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .sixth-inner { text-align: center; }
-    .sixth-glyph {
-      font-family: var(--serif);
-      font-style: italic;
-      font-size: 1.75rem;
-      color: var(--accent);
-      opacity: 0.5;
-      display: block;
-      margin-bottom: 0.3rem;
-    }
-    .sixth-label {
-      font-size: 10px;
-      letter-spacing: 0.13em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-    }
-
-    .feature-num {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.13em;
-      color: var(--text-dim);
-      margin-bottom: 0.65rem;
-    }
-
-    .feature-name {
-      font-family: var(--serif);
-      font-size: 1rem;
-      font-weight: 400;
-      color: var(--accent2);
-      line-height: 1.3;
-      margin-bottom: 0.55rem;
-    }
-
-    .feature-desc {
-      font-size: 13px;
-      color: var(--text-mid);
-      line-height: 1.65;
-    }
-
-    /* ── who qualifies — two-column label+body ── */
-    .who {
-      background: var(--bg2);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      padding: 3.75rem 2rem;
-      transition: background 0.3s;
-    }
-
-    .who-inner {
-      max-width: 860px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 180px 1fr;
-      gap: 3rem;
-      align-items: start;
-    }
-
-    .who-label {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.13em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      padding-top: 3px;
-    }
-
-    .who-body p {
-      font-size: 15px;
-      color: var(--text-mid);
-      line-height: 1.8;
-      margin-bottom: 1rem;
-    }
-    .who-body p:last-child { margin-bottom: 0; }
-    .who-body strong { color: var(--text); font-weight: 500; }
-
-    /* ── privacy / technical detail ── */
-    .detail {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 3.75rem 2rem;
-    }
-
-    .detail p {
-      font-size: 15px;
-      color: var(--text-mid);
-      line-height: 1.8;
-      max-width: 620px;
-    }
-    .detail p + p { margin-top: 1.1rem; }
-
-    .well {
-      background: var(--well-bg);
-      border: 1px solid var(--border-mid);
-      border-radius: 4px;
-      padding: 1.25rem 1.5rem;
-      margin: 1.75rem 0;
-      max-width: 560px;
-    }
-
-    .well-label {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.13em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      margin-bottom: 0.5rem;
-    }
-
-    .well p {
-      font-size: 13px;
-      color: var(--text-mid);
-      line-height: 1.65;
-      max-width: none;
-      margin: 0;
-    }
-
-    .well a { color: var(--accent); text-decoration: underline; }
-
-    code {
-      font-family: 'Courier New', monospace;
-      font-size: 0.85em;
-      color: var(--accent);
-      background: var(--tag-bg);
-      padding: 1px 5px;
-      border-radius: 2px;
-    }
-
-    /* ── page links ── */
-    .page-links {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 0 2rem 4rem;
-      display: flex;
-      gap: 2rem;
-      flex-wrap: wrap;
-    }
-
-    .page-link {
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      text-decoration: none;
-      border-bottom: 1px solid var(--border-mid);
-      padding-bottom: 2px;
-      transition: color 0.2s, border-color 0.2s;
-    }
-    .page-link:hover { color: var(--accent); border-color: var(--accent); }
-
-    /* ── footer ── */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 1.25rem 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    .footer-text {
-      font-size: 11px;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-    }
-
-    .footer-links { display: flex; gap: 1.5rem; }
-    .footer-links a {
-      font-size: 11px;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .footer-links a:hover { color: var(--accent); }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(14px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    @media (max-width: 680px) {
-      nav { padding: 0 1.25rem; }
-      .hero { padding: 3.75rem 1.25rem 3rem; }
-      .screenshots { padding: 2.5rem 1.25rem; }
-      .screenshots-grid { grid-template-columns: 1fr; max-width: 220px; }
-      .features { padding: 2.75rem 1.25rem; }
-      .feature-grid { grid-template-columns: 1fr; }
-      .who { padding: 2.75rem 1.25rem; }
-      .who-inner { grid-template-columns: 1fr; gap: 0.75rem; }
-      .detail { padding: 2.75rem 1.25rem; }
-      .page-links { padding: 0 1.25rem 3.5rem; }
-      footer { padding: 1.25rem; justify-content: center; text-align: center; }
-    }
-
-    @media (min-width: 681px) and (max-width: 860px) {
-      .feature-grid { grid-template-columns: 1fr 1fr; }
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="MOgas MOmoney — Missouri motor fuel tax refund tracker for Android and iOS. Track purchases, calculate refunds, prefill Form 4923-H. Everything stays on your device." />
+<meta property="og:title" content="MOgas MOmoney · REQS TECH" />
+<meta property="og:description" content="Missouri motor fuel tax refund tracker. No account. No cloud. No catch." />
+<title>MOgas MOmoney · apps.reqs.tech</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+img { display: block; max-width: 100%; }
+a { color: inherit; }
+button { font-family: inherit; cursor: pointer; }
+:root {
+--serif: 'Lora', Georgia, serif;
+--sans: 'DM Sans', sans-serif;
+}
+[data-theme="dark"] {
+--bg: #111418;
+--bg2: #181D24;
+--surface: #222A36;
+--border: rgba(255,255,255,0.07);
+--border-mid: rgba(255,255,255,0.13);
+--text: #EDE8DC;
+--text-mid: rgba(237,232,220,0.62);
+--text-dim: rgba(237,232,220,0.35);
+--accent: #4AADAA;
+--accent2: #E07055;
+--tag-bg: rgba(74,173,170,0.09);
+--tag-border: rgba(74,173,170,0.22);
+--well-bg: #181D24;
+--placeholder: #1E2530;
+--grid-bg: rgba(255,255,255,0.03);
+}
+[data-theme="light"] {
+--bg: #EEEAE0;
+--bg2: #E8E3D8;
+--surface: #F4F0E8;
+--border: rgba(26,37,53,0.09);
+--border-mid: rgba(26,37,53,0.15);
+--text: #1A2535;
+--text-mid: #4A5568;
+--text-dim: #9A9A9A;
+--accent: #2E7D7A;
+--accent2: #C4533A;
+--tag-bg: rgba(46,125,122,0.07);
+--tag-border: rgba(46,125,122,0.2);
+--well-bg: #E8E3D8;
+--placeholder: #E0DAD0;
+--grid-bg: rgba(26,37,53,0.03);
+}
+html { scroll-behavior: smooth; }
+body {
+font-family: var(--sans);
+background: var(--bg);
+color: var(--text);
+font-size: 16px;
+line-height: 1.65;
+-webkit-font-smoothing: antialiased;
+transition: background 0.3s ease, color 0.3s ease;
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+}
+/* ── nav ── */
+nav {
+position: sticky;
+top: 0;
+z-index: 200;
+background: var(--bg);
+border-bottom: 1px solid var(--border);
+padding: 0 2rem;
+height: 64px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+transition: background 0.3s;
+}
+.nav-left {
+display: flex;
+align-items: baseline;
+gap: 0.5rem;
+}
+.nav-crumb {
+font-size: 14px;
+font-weight: 500;
+letter-spacing: 0.08em;
+text-transform: uppercase;
+color: var(--text-dim);
+text-decoration: none;
+transition: color 0.2s;
+}
+.nav-crumb:hover { color: var(--accent); }
+.nav-crumb:first-child {
+color: var(--text);
+font-weight: 600;
+border-bottom: 1px solid var(--accent);
+padding-bottom: 1px;
+}
+.nav-crumb:first-child:hover { color: var(--accent); }
+.nav-sep { color: var(--border-mid); font-size: 14px; }
+.nav-current {
+font-size: 14px;
+font-weight: 500;
+letter-spacing: 0.08em;
+text-transform: uppercase;
+color: var(--text-mid);
+}
+.theme-btn {
+background: none;
+border: 1px solid var(--border-mid);
+border-radius: 999px;
+padding: 6px 15px;
+font-size: 13px;
+font-weight: 500;
+letter-spacing: 0.07em;
+text-transform: uppercase;
+color: var(--text-dim);
+transition: color 0.2s;
+}
+.theme-btn:hover { color: var(--text); }
+/* ── main ── */
+main { flex: 1; }
+/* ── hero ── */
+.hero {
+max-width: 860px;
+margin: 0 auto;
+padding: 5.5rem 2rem 4rem;
+}
+.hero-eyebrow {
+display: flex;
+align-items: center;
+gap: 10px;
+font-size: 11px;
+font-weight: 500;
+letter-spacing: 0.14em;
+text-transform: uppercase;
+color: var(--accent);
+margin-bottom: 1.25rem;
+animation: fadeUp 0.45s ease both;
+}
+.hero-eyebrow::before {
+content: '';
+display: block;
+width: 20px;
+height: 1px;
+background: var(--accent);
+flex-shrink: 0;
+}
+.hero h1 {
+font-family: var(--serif);
+font-size: clamp(2.3rem, 5.5vw, 3.5rem);
+font-weight: 400;
+line-height: 1.15;
+color: var(--text);
+margin-bottom: 0.3rem;
+animation: fadeUp 0.45s 0.08s ease both;
+}
+.hero h1 em {
+font-style: italic;
+color: var(--accent2);
+}
+.hero-desc {
+font-size: 16px;
+font-weight: 300;
+color: var(--text-mid);
+max-width: 540px;
+line-height: 1.8;
+margin-top: 1.5rem;
+margin-bottom: 2.25rem;
+animation: fadeUp 0.45s 0.16s ease both;
+}
+.hero-cta-row {
+display: flex;
+align-items: center;
+gap: 1rem;
+flex-wrap: wrap;
+animation: fadeUp 0.45s 0.22s ease both;
+}
+.btn-primary {
+display: inline-flex;
+align-items: center;
+gap: 10px;
+font-family: var(--sans);
+font-size: 12px;
+font-weight: 500;
+letter-spacing: 0.08em;
+text-transform: uppercase;
+color: var(--bg);
+background: var(--accent);
+padding: 13px 26px;
+text-decoration: none;
+border-radius: 2px;
+transition: background 0.2s;
+}
+.btn-primary:hover { background: var(--accent2); }
+.btn-primary .arrow { transition: transform 0.2s; }
+.btn-primary:hover .arrow { transform: translateX(4px); }
+.cta-note {
+font-size: 13px;
+font-weight: 500;
+letter-spacing: 0.09em;
+text-transform: uppercase;
+color: var(--text-dim);
+}
+/* ── divider ── */
+.divider { max-width: 860px; margin: 0 auto; padding: 0 2rem; }
+.divider hr { border: none; border-top: 1px solid var(--border); }
+/* ── section eyebrow ── */
+.section-eyebrow {
+font-size: 10px;
+font-weight: 500;
+letter-spacing: 0.14em;
+text-transform: uppercase;
+color: var(--text-dim);
+margin-bottom: 1.5rem;
+}
+.section-title {
+font-family: var(--erif);
+font-size: 1.65rem;
+font-weight: 400;
+color: var(--text);
+margin-bottom: 2rem;
+}
+/* ── screenshots ── */
+.screenshots {
+max-width: 860px;
+margin: 0 auto;
+padding: 3.75rem 2rem;
+}
+.screenshots-grid {
+display: grid;
+grid-template-columns: 1fr 1fr 1fr;
+gap: 1rem;
+max-width: 680px;
+}
+.screenshot-slot {
+background: var(--placeholder);
+border: 1px solid var(--border);
+border-radius: 4px;
+aspect-ratio: 9 / 19.5;
+display: flex;
+align-items: center;
+justify-content: center;
+overflow: hidden;
+}
+.screenshot-slot img {
+width: 100%;
+height: 100%;
+object-fit: contain;
+}
+.ph-label {
+font-size: 10px;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+color: var(--text-dim);
+text-align: center;
+line-height: 1.8;
+}
+/* ── features — numbered grid ── */
+.features {
+max-width: 860px;
+margin: 0 auto;
+padding: 3.75rem 2rem;
+}
+.five-lines {
+display: flex;
+flex-direction: column;
+gap: 3px;
+margin-bottom: 1.75rem;
+}
+.five-lines span {
+display: block;
+height: 1px;
+background: var(--accent);
+opacity: 0.3;
+width: 100%;
+}
+.feature-grid {
+display: grid;
+grid-template-columns: 1fr 1fr 1fr;
+gap: 1px;
+background: var(--border);
+border: 1px solid var(--border);
+border-radius: 6px;
+overflow: hidden;
+}
+.feature-card {
+background: var(--bg);
+padding: 1.6rem 1.4rem;
+transition: background 0.2s;
+}
+.feature-card:hover { background: var(--surface); }
+.feature-card.sixth {
+background: var(--bg2);
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.sixth-inner { text-align: center; }
+.sixth-glyph {
+font-family: var(--serif);
+font-style: italic;
+font-size: 1.75rem;
+color: var(--accent);
+opacity: 0.5;
+display: block;
+margin-bottom: 0.3rem;
+}
+.sixth-label {
+font-size: 10px;
+letter-spacing: 0.13em;
+text-transform: uppercase;
+color: var(--text-dim);
+}
+.feature-num {
+font-size: 10px;
+font-weight: 500;
+letter-spacing: 0.13em;
+color: var(--text-dim);
+margin-bottom: 0.65rem;
+}
+.feature-name {
+font-family: var(--serif);
+font-size: 1rem;
+font-weight: 400;
+color: var(--accent2);
+line-height: 1.3;
+margin-bottom: 0.55rem;
+}
+.feature-desc {
+font-size: 13px;
+color: var(--text-mid);
+line-height: 1.65;
+}
+/* ── who qualifies ── */
+.who {
+background: var(--bg2);
+border-top: 1px solid var(--border);
+border-bottom: 1px solid var(--border);
+padding: 3.75rem 2rem;
+transition: background 0.3s;
+}
+.who-inner {
+max-width: 860px;
+margin: 0 auto;
+display: grid;
+grid-template-columns: 180px 1fr;
+gap: 3rem;
+align-items: start;
+}
+.who-label {
+font-size: 11px;
+font-weight: 500;
+letter-spacing: 0.13em;
+text-transform: uppercase;
+color: var(--text-dim);
+padding-top: 3px;
+}
+.who-body p {
+font-size: 15px;
+color: var(--text-mid);
+line-height: 1.8;
+margin-bottom: 1rem;
+}
+.who-body p:last-child { margin-bottom: 0; }
+.who-body strong { color: var(--text); font-weight: 500; }
+/* ── privacy / technical detail ── */
+.detail {
+max-width: 860px;
+margin: 0 auto;
+padding: 3.75rem 2rem;
+}
+.detail p {
+font-size: 15px;
+color: var(--text-mid);
+line-height: 1.8;
+max-width: 620px;
+}
+.detail p + p { margin-top: 1.1rem; }
+.well {
+background: var(--well-bg);
+border: 1px solid var(--border-mid);
+border-radius: 4px;
+padding: 1.25rem 1.5rem;
+margin: 1.75rem 0;
+max-width: 560px;
+}
+.well-label {
+font-size: 10px;
+font-weight: 500;
+letter-spacing: 0.13em;
+text-transform: uppercase;
+color: var(--text-dim);
+margin-bottom: 0.5rem;
+}
+.well p {
+font-size: 13px;
+color: var(--text-mid);
+line-height: 1.65;
+max-width: none;
+margin: 0;
+}
+.well a { color: var(--accent); text-decoration: underline; }
+code {
+font-family: 'Courier New', monospace;
+font-size: 0.85em;
+color: var(--accent);
+background: var(--tag-bg);
+padding: 1px 5px;
+border-radius: 2px;
+}
+/* ── page links ── */
+.page-links {
+max-width: 860px;
+margin: 0 auto;
+padding: 0 2rem 4rem;
+display: flex;
+gap: 2rem;
+flex-wrap: wrap;
+}
+.page-link {
+font-size: 12px;
+font-weight: 500;
+letter-spacing: 0.08em;
+text-transform: uppercase;
+color: var(--text-dim);
+text-decoration: none;
+border-bottom: 1px solid var(--border-mid);
+padding-bottom: 2px;
+transition: color 0.2s, border-color 0.2s;
+}
+.page-link:hover { color: var(--accent); border-color: var(--accent); }
+/* ── footer ── */
+footer {
+border-top: 1px solid var(--border);
+padding: 1.25rem 2rem;
+display: flex;
+align-items: center;
+justify-content: space-between;
+flex-wrap: wrap;
+gap: 0.5rem;
+}
+.footer-text {
+font-size: 11px;
+letter-spacing: 0.07em;
+text-transform: uppercase;
+color: var(--text-dim);
+}
+.footer-links { display: flex; gap: 1.5rem; }
+.footer-links a {
+font-size: 11px;
+letter-spacing: 0.07em;
+text-transform: uppercase;
+color: var(--text-dim);
+text-decoration: none;
+transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--accent); }
+@keyframes fadeUp {
+from { opacity: 0; transform: translateY(14px); }
+to { opacity: 1; transform: translateY(0); }
+}
+@media (max-width: 680px) {
+nav { padding: 0 1.25rem; }
+.hero { padding: 3.75rem 1.25rem 3rem; }
+.screenshots { padding: 2.5rem 1.25rem; }
+.screenshots-grid { grid-template-columns: 1fr; max-width: 220px; }
+.features { padding: 2.75rem 1.25rem; }
+.feature-grid { grid-template-columns: 1fr; }
+.who { padding: 2.75rem 1.25rem; }
+.who-inner { grid-template-columns: 1fr; gap: 0.75rem; }
+.detail { padding: 2.75rem 1.25rem; }
+.page-links { padding: 0 1.25rem 3.5rem; }
+footer { padding: 1.25rem; justify-content: center; text-align: center; }
+}
+@media (min-width: 681px) and (max-width: 860px) {
+.feature-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
 </head>
 <body>
+<nav>
+  <div class="nav-left">
+    <a class="nav-crumb" href="https://reqs.tech">reqs.tech</a>
+    <span class="nav-sep">/</span>
+    <a class="nav-crumb" href="/">apps</a>
+    <span class="nav-sep">/</span>
+    <span class="nav-current">MOgas MOmoney</span>
+  </div>
+  <button class="theme-btn" onclick="toggleTheme()">light / dark</button>
+</nav>
 
-  <nav>
-    <div class="nav-left">
-      <a class="nav-crumb" href="https://reqs.tech">reqs.tech</a>
-      <span class="nav-sep">/</span>
-      <a class="nav-crumb" href="/">apps</a>
-      <span class="nav-sep">/</span>
-      <span class="nav-current">MOgas MOmoney</span>
+<main>
+
+  <!-- Hero -->
+  <section class="hero">
+    <p class="hero-eyebrow">REQS TECH · Android · iOS · Free</p>
+    <h1>MO Gas.<br><em>MO Money.</em></h1>
+    <p class="hero-desc">
+      Missouri lets you claim a refund on state motor fuel taxes —
+      but you have to keep the receipts, do the math, and file
+      Form&nbsp;4923-H yourself. MOgas MOmoney handles all of that.
+      Log purchases as you go, watch the refund total build, and
+      have the form ready when filing time comes.
+    </p>
+    <div class="hero-cta-row">
+      <a class="btn-primary" href="https://play.google.com/store/apps/details?id=tech.reqs.mogas" target="_blank" rel="noopener">
+        Get it on Google Play <span class="arrow">→</span>
+      </a>
+      <a class="btn-primary" href="https://apps.apple.com/us/app/mogas-momoney/id6781497724" target="_blank" rel="noopener">
+        Download on App Store <span class="arrow">→</span>
+      </a>
+      <span class="cta-note">Free · No account required</span>
     </div>
-    <button class="theme-btn" onclick="toggleTheme()">light / dark</button>
-  </nav>
+  </section>
 
-  <main>
+  <div class="divider"><hr /></div>
 
-    <!-- Hero -->
-    <section class="hero">
-      <p class="hero-eyebrow">REQS TECH · Android · Free</p>
-      <h1>MO Gas.<br><em>MO Money.</em></h1>
-      <p class="hero-desc">
-        Missouri lets certain vehicle owners claim a refund on state motor fuel taxes paid —
-        but claiming it means keeping receipts, doing the math, and filing
-        Form&nbsp;4923-H yourself. MOgas MOmoney handles that. Track purchases as you go,
-        watch the refund estimate build, and have the form ready when filing time comes.
-      </p>
-      <div class="hero-cta-row">
-        <a class="btn-primary" href="https://play.google.com/store/apps/details?id=tech.reqs.mogas" target="_blank" rel="noopener">
-          Get it on Google Play <span class="arrow">→</span>
-        </a>
-        <span class="cta-note">Free · No account required</span>
+  <!-- Screenshots -->
+  <section class="screenshots">
+    <p class="section-eyebrow">Screenshots</p>
+    <div class="screenshots-grid">
+      <div class="screenshot-slot">
+        <img src="/mogas/assets/1.jpg" alt="MOgas MOmoney home screen" />
       </div>
-    </section>
-
-    <div class="divider"><hr /></div>
-
-    <!-- Screenshots -->
-    <section class="screenshots">
-      <p class="section-eyebrow">Screenshots</p>
-      <div class="screenshots-grid">
-        <div class="screenshot-slot">
-          <img src="/mogas/assets/1.jpg" alt="MOgas MOmoney home screen" />
-        </div>
-        <div class="screenshot-slot">
-          <img src="/mogas/assets/2.jpg" alt="MOgas MOmoney receipt screen" />
-        </div>
-        <div class="screenshot-slot">
-          <img src="/mogas/assets/3.jpg" alt="MOgas MOmoney print screen" />
-        </div>
+      <div class="screenshot-slot">
+        <img src="/mogas/assets/2.jpg" alt="MOgas MOmoney receipt screen" />
       </div>
-    </section>
-
-    <div class="divider"><hr /></div>
-
-    <!-- Features — numbered grid -->
-    <section class="features">
-      <p class="section-eyebrow">What it does</p>
-
-      <div class="five-lines">
-        <span></span><span></span><span></span><span></span><span></span>
+      <div class="screenshot-slot">
+        <img src="/mogas/assets/3.jpg" alt="MOgas MOmoney print screen" />
       </div>
+    </div>
+  </section>
 
-      <div class="feature-grid">
+  <div class="divider"><hr /></div>
 
-        <div class="feature-card">
-          <p class="feature-num">01</p>
-          <p class="feature-name">Fuel log</p>
-          <p class="feature-desc">Record purchases by date, gallons, seller name, and address. Attach a receipt photo for your records.</p>
-        </div>
-
-        <div class="feature-card">
-          <p class="feature-num">02</p>
-          <p class="feature-name">Receipt scanning</p>
-          <p class="feature-desc">On-device OCR reads your receipt and fills in the fields. Nothing leaves your phone.</p>
-        </div>
-
-        <div class="feature-card">
-          <p class="feature-num">03</p>
-          <p class="feature-name">Refund calculator</p>
-          <p class="feature-desc">Estimates your Missouri motor fuel tax refund under RSMo&nbsp;§&nbsp;142.824 as purchases accumulate.</p>
-        </div>
-
-        <div class="feature-card">
-          <p class="feature-num">04</p>
-          <p class="feature-name">Form 4923-H prefill</p>
-          <p class="feature-desc">Pre-populates the Missouri DOR form for your review. You file it — the app just does the legwork.</p>
-        </div>
-
-        <div class="feature-card">
-          <p class="feature-num">05</p>
-          <p class="feature-name">Vehicle profiles</p>
-          <p class="feature-desc">Store make, model, year, VIN, fuel type, and weight class. Supports multiple vehicles.</p>
-        </div>
-
-        <!-- sixth card — the privacy-first {five} moment -->
-        <div class="feature-card sixth">
-          <div class="sixth-inner">
-            <span class="sixth-glyph">{private}</span>
-            <span class="sixth-label">by design</span>
-          </div>
-        </div>
-
+  <!-- Features -->
+  <section class="features">
+    <p class="section-eyebrow">What it does</p>
+    <div class="five-lines">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <p class="feature-num">01</p>
+        <p class="feature-name">Fuel log</p>
+        <p class="feature-desc">Log purchases by date, gallons, seller name, and address. Attach a receipt photo while you're still at the pump.</p>
       </div>
-    </section>
-
-    <div class="divider"><hr /></div>
-
-    <!-- Who qualifies -->
-    <section class="who">
-      <div class="who-inner">
-        <p class="who-label">Who it's for</p>
-        <div class="who-body">
-          <p>
-            Missouri's motor fuel tax refund program covers vehicles that use fuel taxed
-            at the pump but do some or all of their work <strong>off public roads</strong> —
-            farm equipment, certain commercial vehicles, and others qualifying under
-            RSMo&nbsp;§&nbsp;142.824.
-          </p>
-          <p>
-            Farmers who buy fuel for tractors and equipment. Contractors running
-            off-road machinery. Business owners with qualifying vehicles who've
-            been leaving money on the table because tracking receipts manually wasn't
-            worth the friction.
-          </p>
-          <p>
-            MOgas MOmoney removes the friction. The refund was always yours — the app
-            just makes it worth claiming.
-          </p>
+      <div class="feature-card">
+        <p class="feature-num">02</p>
+        <p class="feature-name">Receipt scanning</p>
+        <p class="feature-desc">Point the camera at your receipt and the app fills in the fields. Everything happens on your phone — nothing leaves it.</p>
+      </div>
+      <div class="feature-card">
+        <p class="feature-num">03</p>
+        <p class="feature-name">Refund calculator</p>
+        <p class="feature-desc">Your running refund total updates with every receipt. Watch the number grow all year.</p>
+      </div>
+      <div class="feature-card">
+        <p class="feature-num">04</p>
+        <p class="feature-name">Form 4923-H prefill</p>
+        <p class="feature-desc">When it's time to file, the app pre-populates the Missouri DOR form with your data. You review it and send it in.</p>
+      </div>
+      <div class="feature-card">
+        <p class="feature-num">05</p>
+        <p class="feature-name">Vehicle profiles</p>
+        <p class="feature-desc">Store make, model, year, VIN, fuel type, and weight class. Works with multiple vehicles.</p>
+      </div>
+      <div class="feature-card sixth">
+        <div class="sixth-inner">
+          <span class="sixth-glyph">{private}</span>
+          <span class="sixth-label">by design</span>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Technical detail -->
-    <section class="detail">
-      <p>
-        MOgas MOmoney is built around the workflow that actually exists. You buy fuel.
-        You photograph the receipt or type in the details. The app keeps a running log
-        and updates your estimated refund. When the filing period comes, you export a
-        prefilled Form&nbsp;4923-H, review it, and submit it to the Missouri Department
-        of Revenue. That's the whole loop.
-      </p>
+  <div class="divider"><hr /></div>
 
-      <div class="well">
-        <p class="well-label">On-device OCR</p>
+  <!-- Who it's for -->
+  <section class="who">
+    <div class="who-inner">
+      <p class="who-label">Who it's for</p>
+      <div class="who-body">
         <p>
-          Receipt scanning uses Google's ML Kit Text Recognition — processed entirely
-          on your device. Photos and extracted text are never sent to Google, REQS TECH,
-          or anywhere else. See <a href="https://developers.google.com/ml-kit/terms" target="_blank" rel="noopener">ML Kit terms</a> for details.
+          Missouri's motor fuel tax refund program is for <strong>personal and
+          passenger vehicles under 26,000 lbs</strong> — regular drivers who
+          buy taxed fuel at the pump and qualify for a refund under
+          RSMo&nbsp;§&nbsp;142.822.
+        </p>
+        <p>
+          Commuters. Families. Small business owners with personal vehicles.
+          People who've been leaving money on the table because dealing with
+          receipts and government forms just wasn't worth the hassle.
+        </p>
+        <p>
+          MOgas MOmoney makes it worth it. The refund was always yours —
+          now there's no excuse not to claim it.
         </p>
       </div>
-
-      <p>
-        Sensitive fields — SSNs, FEINs, bank account details — are stored using
-        Android's <code>EncryptedSharedPreferences</code>, tied to your device's lock
-        screen credential. We have no copy of your data and cannot recover it for you.
-      </p>
-
-      <p>
-        MOgas MOmoney is published by REQS TECH, a division of TYPICAL LLC, based in
-        Missouri. Not affiliated with the Missouri Department of Revenue.
-      </p>
-    </section>
-
-    <!-- Page nav -->
-    <div class="page-links">
-      <a class="page-link" href="/mogas/privacy">Privacy policy</a>
-      <a class="page-link" href="/">All apps</a>
-      <a class="page-link" href="mailto:privacy@reqs.tech">Contact</a>
     </div>
+  </section>
 
-  </main>
+  <!-- Technical detail -->
+  <section class="detail">
+    <p>
+      The workflow is simple: you buy fuel, you log it — either by scanning
+      the receipt or typing it in. The app tracks everything and keeps a
+      running refund estimate. When the filing window opens (July–September),
+      you export a prefilled Form&nbsp;4923-H, give it a once-over, and mail
+      it to the Missouri Department of Revenue. That's it.
+    </p>
+    <div class="well">
+      <p class="well-label">On-device OCR</p>
+      <p>
+        Receipt scanning runs on Google's ML Kit Text Recognition, processed
+        entirely on your device. Your photos and receipt data never touch
+        Google's servers, REQS TECH's servers, or anyone else's.
+        See <a href="https://developers.google.com/ml-kit/terms" target="_blank" rel="noopener">ML Kit terms</a> for details.
+      </p>
+    </div>
+    <p>
+      Sensitive fields — SSNs, FEINs, bank account details — are stored using
+      Android's <code>EncryptedSharedPreferences</code>, tied to your device's
+      lock screen credential. We have no copy of your data and can't recover
+      it for you. That's the point.
+    </p>
+    <p>
+      MOgas MOmoney is built and published by REQS TECH, a division of
+      TYPICAL LLC, based in Missouri. Not affiliated with the Missouri
+      Department of Revenue.
+    </p>
+  </section>
 
-  <footer>
-    <span class="footer-text">© 2026 TYPICAL LLC · REQS TECH · MOgas MOmoney</span>
-    <nav class="footer-links">
-      <a href="https://reqs.tech">reqs.tech</a>
-      <a href="/mogas/privacy">privacy</a>
-      <a href="mailto:privacy@reqs.tech">contact</a>
-    </nav>
-  </footer>
+  <!-- Page nav -->
+  <div class="page-links">
+    <a class="page-link" href="/mogas/privacy">Privacy policy</a>
+    <a class="page-link" href="/">All apps</a>
+    <a class="page-link" href="mailto:privacy@reqs.tech">Contact</a>
+  </div>
 
-  <script>
-    function toggleTheme() {
-      const html = document.documentElement;
-      html.setAttribute('data-theme', html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
-    }
-  </script>
+</main>
 
+<footer>
+  <span class="footer-text">© 2026 TYPICAL LLC · REQS TECH · MOgas MOmoney</span>
+  <nav class="footer-links">
+    <a href="https://reqs.tech">reqs.tech</a>
+    <a href="/mogas/privacy">privacy</a>
+    <a href="mailto:privacy@reqs.tech">contact</a>
+  </nav>
+</footer>
+
+<script>
+function toggleTheme() {
+  const html = document.documentElement;
+  html.setAttribute('data-theme', html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+}
+</script>
 </body>
 </html>
