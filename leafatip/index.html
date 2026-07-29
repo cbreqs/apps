@@ -1,0 +1,609 @@
+---
+layout: null
+---
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Leaf a Tip — a creator support platform. Buy a pack of credits once, then send support to anyone, any time, with no extra charges." />
+  <meta property="og:title" content="Leaf a Tip · REQS TECH" />
+  <meta property="og:description" content="Prepaid credits, real payouts, no repeated charges. Support that lands." />
+  <title>Leaf a Tip · apps.reqs.tech</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+    button { font-family: inherit; cursor: pointer; }
+
+    :root {
+      --serif: 'Lora', Georgia, serif;
+      --sans:  'DM Sans', sans-serif;
+    }
+
+    [data-theme="dark"] {
+      --bg:          #111418;
+      --bg2:         #181D24;
+      --surface:     #222A36;
+      --border:      rgba(255,255,255,0.07);
+      --border-mid:  rgba(255,255,255,0.13);
+      --text:        #EDE8DC;
+      --text-mid:    rgba(237,232,220,0.62);
+      --text-dim:    rgba(237,232,220,0.35);
+      --accent:      #4AADAA;
+      --accent2:     #E07055;
+      --tag-bg:      rgba(74,173,170,0.09);
+      --tag-border:  rgba(74,173,170,0.22);
+      --well-bg:     #181D24;
+      --grid-bg:     rgba(255,255,255,0.03);
+    }
+
+    [data-theme="light"] {
+      --bg:          #EEEAE0;
+      --bg2:         #E8E3D8;
+      --surface:     #F4F0E8;
+      --border:      rgba(26,37,53,0.09);
+      --border-mid:  rgba(26,37,53,0.15);
+      --text:        #1A2535;
+      --text-mid:    #4A5568;
+      --text-dim:    #9A9A9A;
+      --accent:      #2E7D7A;
+      --accent2:     #C4533A;
+      --tag-bg:      rgba(46,125,122,0.07);
+      --tag-border:  rgba(46,125,122,0.2);
+      --well-bg:     #E8E3D8;
+      --grid-bg:     rgba(26,37,53,0.03);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      transition: background 0.3s ease, color 0.3s ease;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.3s;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+
+    .nav-crumb {
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-crumb:hover { color: var(--accent); }
+    .nav-crumb:first-child {
+      color: var(--text);
+      font-weight: 600;
+      border-bottom: 1px solid var(--accent);
+      padding-bottom: 1px;
+    }
+    .nav-crumb:first-child:hover { color: var(--accent); }
+
+    .nav-sep { color: var(--border-mid); font-size: 14px; }
+
+    .nav-current {
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-mid);
+    }
+
+    .theme-btn {
+      background: none;
+      border: 1px solid var(--border-mid);
+      border-radius: 999px;
+      padding: 6px 15px;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      transition: color 0.2s;
+    }
+    .theme-btn:hover { color: var(--text); }
+
+    main { flex: 1; }
+
+    .hero {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 5.5rem 2rem 4rem;
+    }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+      animation: fadeUp 0.45s ease both;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 1px;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.3rem, 5.5vw, 3.5rem);
+      font-weight: 400;
+      line-height: 1.15;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+      animation: fadeUp 0.45s 0.08s ease both;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent2);
+    }
+
+    .hero-desc {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--text-mid);
+      max-width: 540px;
+      line-height: 1.8;
+      margin-top: 1.5rem;
+      margin-bottom: 2.25rem;
+      animation: fadeUp 0.45s 0.16s ease both;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      animation: fadeUp 0.45s 0.22s ease both;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--bg);
+      background: var(--accent);
+      padding: 13px 26px;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: var(--accent2); }
+    .btn-primary .arrow { transition: transform 0.2s; }
+    .btn-primary:hover .arrow { transform: translateX(4px); }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-mid);
+      background: transparent;
+      border: 1px solid var(--border-mid);
+      padding: 13px 26px;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .btn-secondary:hover { color: var(--text); border-color: var(--text-mid); }
+
+    .divider { max-width: 860px; margin: 0 auto; padding: 0 2rem; }
+    .divider hr { border: none; border-top: 1px solid var(--border); }
+
+    .section-eyebrow {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 1.5rem;
+    }
+
+    .features {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 3.75rem 2rem;
+    }
+
+    .five-lines {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      margin-bottom: 1.75rem;
+    }
+    .five-lines span {
+      display: block;
+      height: 1px;
+      background: var(--accent);
+      opacity: 0.3;
+      width: 100%;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .feature-card {
+      background: var(--bg);
+      padding: 1.6rem 1.4rem;
+      transition: background 0.2s;
+      position: relative;
+    }
+    .feature-card:hover { background: var(--surface); }
+
+    .feature-card.sixth {
+      background: var(--bg2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .feature-card.sixth .sixth-inner {
+      text-align: center;
+    }
+    .sixth-glyph {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1.75rem;
+      color: var(--accent);
+      opacity: 0.5;
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+    .sixth-label {
+      font-size: 10px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .feature-num {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.13em;
+      color: var(--text-dim);
+      margin-bottom: 0.65rem;
+    }
+
+    .feature-name {
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--accent2);
+      line-height: 1.3;
+      margin-bottom: 0.55rem;
+    }
+
+    .feature-desc {
+      font-size: 13px;
+      color: var(--text-mid);
+      line-height: 1.65;
+    }
+
+    .who {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 3.75rem 2rem;
+      transition: background 0.3s;
+    }
+
+    .who-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .who-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      padding-top: 3px;
+    }
+
+    .who-body p {
+      font-size: 15px;
+      color: var(--text-mid);
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+    .who-body p:last-child { margin-bottom: 0; }
+    .who-body strong { color: var(--text); font-weight: 500; }
+
+    .status {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 4.5rem 2rem;
+      text-align: center;
+    }
+
+    .status h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.3;
+      margin-bottom: 1rem;
+    }
+
+    .status p {
+      font-size: 15px;
+      color: var(--text-mid);
+      max-width: 420px;
+      margin: 0 auto 2rem;
+      line-height: 1.8;
+    }
+
+    .page-links {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 2rem 4rem;
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .page-link {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border-mid);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .page-link:hover { color: var(--accent); border-color: var(--accent); }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.25rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .footer-text {
+      font-size: 11px;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .footer-links a {
+      font-size: 11px;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--accent); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 680px) {
+      nav { padding: 0 1.25rem; }
+      .hero { padding: 3.75rem 1.25rem 3rem; }
+      .features { padding: 2.75rem 1.25rem; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .who { padding: 2.75rem 1.25rem; }
+      .who-inner { grid-template-columns: 1fr; gap: 0.75rem; }
+      .status { padding: 3rem 1.25rem; }
+      .page-links { padding: 0 1.25rem 3rem; }
+      footer { padding: 1.25rem; justify-content: center; text-align: center; }
+    }
+
+    @media (min-width: 681px) and (max-width: 860px) {
+      .feature-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-left">
+      <a class="nav-crumb" href="https://reqs.tech">reqs.tech</a>
+      <span class="nav-sep">/</span>
+      <a class="nav-crumb" href="/">apps</a>
+      <span class="nav-sep">/</span>
+      <span class="nav-current">Leaf a Tip</span>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()">light / dark</button>
+  </nav>
+
+  <main>
+
+    <section class="hero">
+      <p class="hero-eyebrow">REQS TECH · Web · Creator Support · Multi-Tenant</p>
+      <h1>Support, one high five<br>at a <em>time.</em></h1>
+      <p class="hero-desc">
+        Leaf a Tip is a creator support platform. Buy a pack of credits once, then send
+        a high five to anyone, any time — no re-entering a card, no repeated charges.
+      </p>
+      <div class="hero-cta-row">
+        <a class="btn-primary" href="mailto:singularity@reqs.tech?subject=Leaf a Tip early access">
+          Get early access <span class="arrow">→</span>
+        </a>
+        <a class="btn-secondary" href="https://reqs.tech">About REQS.TECH</a>
+      </div>
+    </section>
+
+    <div class="divider"><hr /></div>
+
+    <section class="features">
+      <p class="section-eyebrow">What makes it different</p>
+
+      <div class="five-lines">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+
+      <div class="feature-grid">
+
+        <div class="feature-card">
+          <p class="feature-num">01</p>
+          <p class="feature-name">Prepaid, not per-charge</p>
+          <p class="feature-desc">Buy a pack once, then send support anywhere, any time — no separate card charge for every single send.</p>
+        </div>
+
+        <div class="feature-card">
+          <p class="feature-num">02</p>
+          <p class="feature-name">Every creator gets a page</p>
+          <p class="feature-desc">Bio, photo, socials, custom links — a real profile, not just a bare payment button.</p>
+        </div>
+
+        <div class="feature-card">
+          <p class="feature-num">03</p>
+          <p class="feature-name">Real payouts</p>
+          <p class="feature-desc">Stripe Connect under the hood. Creators hold their balance and cash out to their own bank whenever they're ready.</p>
+        </div>
+
+        <div class="feature-card">
+          <p class="feature-num">04</p>
+          <p class="feature-name">Transparent platform fee</p>
+          <p class="feature-desc">A small, fixed cut on each send, taken from the creator's side. No surprise charges to the person sending support.</p>
+        </div>
+
+        <div class="feature-card">
+          <p class="feature-num">05</p>
+          <p class="feature-name">Live balance &amp; history</p>
+          <p class="feature-desc">Every pack, send, and payout tracked in real time — visible to both the sender and the creator.</p>
+        </div>
+
+        <div class="feature-card sixth">
+          <div class="sixth-inner">
+            <span class="sixth-glyph">{five}</span>
+            <span class="sixth-label">and then some</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="divider"><hr /></div>
+
+    <section class="who">
+      <div class="who-inner">
+        <p class="who-label">Who it's for</p>
+        <div class="who-body">
+          <p>
+            Leaf a Tip is built for <strong>creators, streamers, and small communities</strong>
+            who want a simple way to receive support without asking their fans to think twice.
+          </p>
+          <p>
+            Buy once, then send to anyone whenever the moment calls for it — no re-entering
+            a card, no second-guessing whether it's worth the hassle for a few dollars.
+          </p>
+          <p>
+            And for the people running those communities who want their own branded page
+            instead of a generic tip button.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="status">
+      <h2>Currently in early development.<br>Interested in trying it out?</h2>
+      <p>
+        Leaf a Tip is being built in the open by REQS.TECH. Early users get direct
+        input on features and first access when it opens up.
+      </p>
+      <a class="btn-primary" href="mailto:singularity@reqs.tech?subject=Leaf a Tip early access">
+        Reach out <span class="arrow">→</span>
+      </a>
+    </section>
+
+    <div class="page-links">
+      <a class="page-link" href="/">All apps</a>
+      <a class="page-link" href="https://reqs.tech">reqs.tech</a>
+      <a class="page-link" href="mailto:singularity@reqs.tech">Contact</a>
+    </div>
+
+  </main>
+
+  <footer>
+    <span class="footer-text">© 2026 LEAF A TIP · BUILT BY REQS.TECH</span>
+    <nav class="footer-links">
+      <a href="https://reqs.tech">reqs.tech</a>
+      <a href="mailto:singularity@reqs.tech">contact</a>
+    </nav>
+  </footer>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      html.setAttribute('data-theme', html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    }
+  </script>
+
+</body>
+</html>
