@@ -1,0 +1,385 @@
+---
+layout: null
+---
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leaf a Tip — Product &amp; Pricing | REQS TECH</title>
+  <meta name="description" content="Product and pricing description for Leaf a Tip, a tipping platform for cannabis-adjacent service providers." />
+  <!-- Underwriting document: reachable by direct link, kept out of search
+       results. It carries volume projections and business strategy. -->
+  <meta name="robots" content="noindex, nofollow" />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    a { color: inherit; }
+
+    :root {
+      --teal:        #2E7D7A;
+      --teal-bright: #4AADAA;
+      --terra:       #C4533A;
+      --terra-bright:#E07055;
+      --cream:       #EDE8DC;
+      --navy-deep:   #1A2535;
+      --serif:       'Lora', Georgia, serif;
+      --sans:        'DM Sans', sans-serif;
+    }
+    [data-theme="dark"] {
+      --bg:          #111418;
+      --bg2:         #181D24;
+      --bg3:         #1E2530;
+      --surface:     #222A36;
+      --border:      rgba(255,255,255,0.07);
+      --border-mid:  rgba(255,255,255,0.13);
+      --text:        #EDE8DC;
+      --text-mid:    rgba(237,232,220,0.62);
+      --text-dim:    rgba(237,232,220,0.35);
+      --accent:      #4AADAA;
+      --accent2:     #E07055;
+      --tag-bg:      rgba(74,173,170,0.09);
+      --tag-border:  rgba(74,173,170,0.22);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      font-weight: 300;
+    }
+
+    header.site {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 1.4rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    header.site .brand {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+    }
+    header.site .brand span { color: var(--accent); }
+    header.site .crumb {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--tag-bg);
+      border: 1px solid var(--tag-border);
+      border-radius: 999px;
+      padding: 0.3rem 0.85rem;
+      margin-bottom: 1.2rem;
+    }
+
+    h1 {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: clamp(1.9rem, 4.5vw, 2.6rem);
+      line-height: 1.2;
+      margin-bottom: 0.6rem;
+    }
+    .subtitle {
+      color: var(--text-mid);
+      font-size: 1.05rem;
+      max-width: 42ch;
+      margin-bottom: 0.4rem;
+    }
+    .meta {
+      color: var(--text-dim);
+      font-size: 0.85rem;
+      margin-bottom: 2.8rem;
+    }
+
+    section { margin-bottom: 2.6rem; }
+    h2 {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: 1.3rem;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid var(--border);
+    }
+    h2 .num {
+      color: var(--text-dim);
+      font-family: var(--sans);
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      margin-right: 0.6rem;
+      vertical-align: 0.15em;
+    }
+    p { margin-bottom: 0.9rem; color: var(--text); }
+    p.mid { color: var(--text-mid); }
+    strong { font-weight: 500; color: var(--text); }
+
+    ol.flow {
+      counter-reset: step;
+      list-style: none;
+      margin: 1rem 0 0.5rem;
+    }
+    ol.flow li {
+      position: relative;
+      padding: 0 0 1.1rem 2.4rem;
+      color: var(--text-mid);
+    }
+    ol.flow li::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 0.1rem;
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 50%;
+      border: 1px solid var(--tag-border);
+      background: var(--tag-bg);
+      color: var(--accent);
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    ol.flow li:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      left: 0.72rem;
+      top: 1.8rem;
+      bottom: 0.2rem;
+      width: 1px;
+      background: var(--border-mid);
+    }
+
+    table.tiers {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    table.tiers th, table.tiers td {
+      text-align: left;
+      padding: 0.7rem 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    table.tiers th {
+      font-weight: 500;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      background: var(--bg3);
+    }
+    table.tiers tr:last-child td { border-bottom: none; }
+    table.tiers td.amount {
+      font-family: var(--serif);
+      color: var(--accent);
+    }
+    table.tiers td.mid {
+      color: var(--text-dim);
+      font-size: 0.88rem;
+    }
+
+    ul.plain {
+      list-style: none;
+      margin: 0.5rem 0 0.9rem;
+    }
+    ul.plain li {
+      position: relative;
+      padding: 0 0 0.55rem 1.3rem;
+      color: var(--text-mid);
+    }
+    ul.plain li::before {
+      content: "—";
+      position: absolute;
+      left: 0;
+      color: var(--accent2);
+    }
+
+    .callout {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      padding: 1rem 1.2rem;
+      margin: 1.2rem 0;
+      color: var(--text-mid);
+      font-size: 0.95rem;
+    }
+
+    footer.site {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 1.5rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-dim);
+      font-size: 0.8rem;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    footer.site a { text-decoration: none; }
+    footer.site a:hover { color: var(--accent); }
+
+    @media (max-width: 540px) {
+      header.site { flex-direction: column; gap: 0.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site">
+    <a class="brand" href="https://reqs.tech">REQS<span>.</span>TECH</a>
+    <span class="crumb">Leaf a Tip / Payments</span>
+  </header>
+
+  <main>
+    <span class="eyebrow">Product &amp; Pricing Description</span>
+    <h1>Leaf a Tip</h1>
+    <p class="subtitle">A tipping platform for service providers in cannabis-adjacent businesses. Tips, not product.</p>
+    <p class="meta">TYPICAL LLC &middot; leafatip.com</p>
+
+    <section>
+      <h2><span class="num">01</span>What Leaf a Tip Is</h2>
+      <p>Leaf a Tip is a digital tipping platform for service providers in cannabis-adjacent businesses — tour guides, budtenders, event staff, educators. It is not a cannabis sales platform. No product changes hands through Leaf a Tip. Customers use it to tip people for service they've already received, the same way they'd tip a bartender or a hairstylist.</p>
+      <p class="mid">The name carries the industry association on purpose, because that's who the platform serves. The transactions themselves are tips, full stop.</p>
+    </section>
+
+    <section>
+      <h2><span class="num">02</span>How a Transaction Works</h2>
+      <p>There are two distinct money movements here, and it matters to keep them apart:</p>
+      <ol class="flow">
+        <li>A customer buys a prepaid credit pack by card. This is the only card transaction in the system.</li>
+        <li>They finish a tour, class, or service.</li>
+        <li>They scan a QR code displayed by the guide or business, which opens that guide's Leaf a Tip page in their browser — no app install required.</li>
+        <li>They pick a tip tier (or enter a custom amount) and spend credit they already bought. No card is charged at this step.</li>
+        <li>The tip transfers to the service provider's own connected account.</li>
+      </ol>
+      <p class="mid">All card activity is card-not-present, one-time, low dollar, and initiated entirely by the customer. Nobody is billed on a schedule and nothing ships.</p>
+    </section>
+
+    <section>
+      <h2><span class="num">03</span>What's Being Sold, and For How Much</h2>
+      <p>Customers buy prepaid credit packs. That purchase is the card transaction. Every pack adds one $1 Low Five for Leaf a Tip per $5 of credit, charged on top of the credit rather than deducted from it:</p>
+      <table class="tiers">
+        <thead>
+          <tr><th>Credit Pack</th><th>Card Charge</th><th>Customer Credit</th><th>Low Fives</th><th>Leaf a Tip</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>High Five</td><td class="amount">$6</td><td class="mid">$5</td><td class="mid">1</td><td class="mid">$1</td></tr>
+          <tr><td>Up High</td><td class="amount">$12</td><td class="mid">$10</td><td class="mid">2</td><td class="mid">$2</td></tr>
+          <tr><td>Sesh</td><td class="amount">$24</td><td class="mid">$20</td><td class="mid">4</td><td class="mid">$4</td></tr>
+        </tbody>
+      </table>
+      <p>Customers then spend that credit on tips, in three named tiers. No card is charged at this step and nothing is deducted — the full amount reaches the creator:</p>
+      <table class="tiers">
+        <thead>
+          <tr><th>Tier</th><th>Amount</th><th>Goes To</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>High Five</td><td class="amount">$5</td><td class="mid">Creator, in full</td></tr>
+          <tr><td>Up High</td><td class="amount">$10</td><td class="mid">Creator, in full</td></tr>
+          <tr><td>Sesh</td><td class="amount">$20</td><td class="mid">Creator, in full</td></tr>
+        </tbody>
+      </table>
+      <p class="mid">Custom tip amounts are allowed between $5 and $50. Both bounds are stated on the send form itself, so customers see the limits before they run into them rather than after. There is deliberately no $1 tip: a dollar tip costs more to process than it returns, so the smallest send is $5.</p>
+      <p class="mid">Leaf a Tip's entire revenue is the Low Fives attached to each pack purchase — one $1 Low Five per $5 of credit, or 20% of credit value. Nothing is taken from the creator's side and there is no per-tip fee. The rate is proportional rather than flat so that percentage-based processing costs are covered at every pack size, not just the smallest one.</p>
+      <div class="callout"><strong>Customers hold a prepaid balance.</strong> Money is collected at pack purchase and spent later, so Leaf a Tip holds customer funds between those two events. Balances do not expire, are not transferable between accounts, and cannot be withdrawn as cash — they can only be spent as tips inside the platform. Typical balances are small, in the $5&ndash;$20 range, and most are spent within days of purchase.</div>
+      <div class="callout"><strong>This is a split-payment / marketplace model.</strong> Tips route from Leaf a Tip to individual creators, which requires a platform/marketplace payment structure — each creator needs their own payout destination (e.g., a Stripe Connect&ndash;style sub-account) rather than funds settling into a single merchant account. The Low Fives are the only portion that stays with Leaf a Tip.</div>
+    </section>
+
+    <section>
+      <h2><span class="num">04</span>Who's Paying and Who's Receiving</h2>
+      <p><strong>Payers:</strong> Adult customers of cannabis-adjacent service businesses — tour attendees, dispensary customers, event guests. All 21+, since the businesses themselves are age-gated.</p>
+      <p><strong>Recipients:</strong> The service providers and businesses using Leaf a Tip. Launch clients are in the Kansas City, Missouri market, starting with cannabis education and tour operators.</p>
+    </section>
+
+    <section>
+      <h2><span class="num">05</span>Expected Volume</h2>
+      <p class="mid">This is a new platform, so these are projections, not history:</p>
+      <ul class="plain">
+        <li><strong>Months 1&ndash;3:</strong> $500&ndash;$2,000/month in gross tip volume, single-digit business count</li>
+        <li><strong>Months 4&ndash;12:</strong> $2,000&ndash;$10,000/month as more KC-area businesses onboard</li>
+        <li><strong>Average card transaction:</strong> $6&ndash;$24 &mdash; a pack purchase. Individual tips draw down existing credit and are not card transactions.</li>
+        <li><strong>Card transaction count:</strong> one per pack purchase, so materially fewer than the tip count, since a single pack funds several tips.</li>
+      </ul>
+      <p class="mid">Growth is onboarding-driven — each new business brings its own customer base. No paid customer acquisition is planned for year one; businesses display the QR codes and their customers do the rest.</p>
+    </section>
+
+    <section>
+      <h2><span class="num">06</span>Why the Chargeback Risk Is Low</h2>
+      <ul class="plain">
+        <li>Tips are voluntary and customer-initiated. Nobody disputes a tip they chose to leave five minutes ago the way they dispute a product that never arrived.</li>
+        <li>Nothing ships. Credit is delivered instantly and automatically the moment the payment clears.</li>
+        <li>Small ticket sizes. A $6 to $24 chargeback isn't worth most people's time.</li>
+        <li>No recurring billing, no free trials, no negative-option anything.</li>
+        <li>On the prepaid gap, stated plainly: a customer could in principle buy credit and dispute it before spending any. Balances are small and short-lived, every purchase is tied to an authenticated account, and each pack, send, and payout is recorded in a timestamped ledger.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2><span class="num">07</span>Compliance Posture</h2>
+      <ul class="plain">
+        <li>No cannabis, hemp, or CBD product is sold, marketed, or fulfilled through the platform.</li>
+        <li>No health or therapeutic claims appear anywhere on the site.</li>
+        <li>Recipient businesses are legal, licensed, or license-exempt operations in their jurisdictions (education and tour services).</li>
+        <li>Age verification is handled at the business level; Leaf a Tip's client businesses already gate at 21+.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2><span class="num">08</span>Where Liability Sits</h2>
+      <p>Leaf a Tip processes tips only — a voluntary payment for service already rendered, initiated entirely by the customer, with no product or service purchased through Leaf a Tip itself. If a customer has an issue with the underlying product or service (a tour, a class, a retail purchase), that dispute is between the customer and the business that sold it, through that business's own payment processor. Leaf a Tip is not a party to that transaction and has no fulfillment obligation to dispute.</p>
+      <p class="mid">This keeps Leaf a Tip's own dispute exposure limited to the tip transaction itself, which is inherently low-risk for the reasons above.</p>
+    </section>
+
+    <section>
+      <h2><span class="num">09</span>The Company</h2>
+      <p>Leaf a Tip operates under TYPICAL LLC (Missouri). I build and maintain the platform myself — I'm a developer with a stack across GitHub, Firebase, and Cloudflare, and I already do web and payments-adjacent work for cannabis education businesses in the KC market, which is where the idea came from.</p>
+      <div class="callout">The guides kept getting asked "can I tip you?" and the answer was a shrug and a Venmo handle. Leaf a Tip is the better answer.</div>
+    </section>
+
+    <section>
+      <h2><span class="num">10</span>The Gap This Sits In</h2>
+      <p>Most processors sort a cannabis-adjacent applicant into one of two buckets: decline on the keyword, or underwrite and price it as full cannabis retail. Leaf a Tip fits neither, and the mismatch is worth naming directly.</p>
+      <ul class="plain">
+        <li><strong>None of the regulated-product burden.</strong> No seed-to-sale tracking, no METRC integration, no per-transaction license verification, no certificates of analysis, no THC limits to police, no age-gated fulfillment, no product liability. The things that make cannabis retail genuinely expensive and complicated to underwrite do not exist here, because no product is ever sold.</li>
+        <li><strong>None of the standard high-risk transaction patterns.</strong> No recurring billing, no free trials, no negative-option enrollment, no subscriptions, no delivery window that can be missed. The dispute surface is a single voluntary, customer-initiated, low-dollar payment for service already rendered.</li>
+        <li><strong>What it does carry is the association.</strong> The name, the customer base, the vertical. That is precisely the part automated aggregator screening reacts to on sight &mdash; and precisely the part a human underwriter is equipped to actually assess.</li>
+      </ul>
+      <p>The net effect is an account whose real risk profile resembles a small tipping app, but which keyword screening files alongside dispensaries. Stripe, Square, and PayPal will decline or later freeze it on the association alone, without ever reaching the distinction.</p>
+      <div class="callout"><strong>For a processor willing to underwrite that distinction, this is a position rather than a concession.</strong> The cannabis-adjacent service sector &mdash; tours, education, events, hospitality &mdash; has the same tipping culture as any service industry and effectively no compliant tipping infrastructure, because the mainstream tools reject the category before evaluating it. A processor that supports one credible, clean-running platform here becomes the natural referral for the rest of the vertical as it formalizes.</div>
+      <p class="mid">To be clear about what this is and isn't: the volume projections in section 05 are deliberately conservative and I'm not asking anyone to price against a forecast. The argument here is about category position, not year-one revenue. I'd rather state the opportunity plainly up front than have it come up later as something I left out.</p>
+    </section>
+  </main>
+
+  <footer class="site">
+    <span>&copy; 2026 TYPICAL LLC</span>
+    <span><a href="https://leafatip.com">leafatip.com</a> &middot; <a href="https://reqs.tech">reqs.tech</a></span>
+  </footer>
+
+</body>
+</html>
