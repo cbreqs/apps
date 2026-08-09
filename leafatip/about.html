@@ -1,0 +1,328 @@
+---
+layout: null
+---
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leaf a Tip — About | REQS TECH</title>
+  <meta name="description" content="Why Leaf a Tip was built, how tipping through it works, and exactly what it costs." />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    a { color: inherit; }
+
+    :root {
+      --teal:        #2E7D7A;
+      --teal-bright: #4AADAA;
+      --terra:       #C4533A;
+      --terra-bright:#E07055;
+      --cream:       #EDE8DC;
+      --navy-deep:   #1A2535;
+      --serif:       'Lora', Georgia, serif;
+      --sans:        'DM Sans', sans-serif;
+    }
+    [data-theme="dark"] {
+      --bg:          #111418;
+      --bg2:         #181D24;
+      --bg3:         #1E2530;
+      --surface:     #222A36;
+      --border:      rgba(255,255,255,0.07);
+      --border-mid:  rgba(255,255,255,0.13);
+      --text:        #EDE8DC;
+      --text-mid:    rgba(237,232,220,0.62);
+      --text-dim:    rgba(237,232,220,0.35);
+      --accent:      #4AADAA;
+      --accent2:     #E07055;
+      --tag-bg:      rgba(74,173,170,0.09);
+      --tag-border:  rgba(74,173,170,0.22);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      font-weight: 300;
+    }
+
+    header.site {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 1.4rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    header.site .brand {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+    }
+    header.site .brand span { color: var(--accent); }
+    header.site .crumb {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--tag-bg);
+      border: 1px solid var(--tag-border);
+      border-radius: 999px;
+      padding: 0.3rem 0.85rem;
+      margin-bottom: 1.2rem;
+    }
+
+    h1 {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: clamp(1.9rem, 4.5vw, 2.6rem);
+      line-height: 1.2;
+      margin-bottom: 0.6rem;
+    }
+    .subtitle {
+      color: var(--text-mid);
+      font-size: 1.05rem;
+      max-width: 42ch;
+      margin-bottom: 0.4rem;
+    }
+    .meta {
+      color: var(--text-dim);
+      font-size: 0.85rem;
+      margin-bottom: 2.8rem;
+    }
+
+    section { margin-bottom: 2.6rem; }
+    h2 {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: 1.3rem;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid var(--border);
+    }
+    h2 .num {
+      color: var(--text-dim);
+      font-family: var(--sans);
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      margin-right: 0.6rem;
+      vertical-align: 0.15em;
+    }
+    p { margin-bottom: 0.9rem; color: var(--text); }
+    p.mid { color: var(--text-mid); }
+    strong { font-weight: 500; color: var(--text); }
+
+    ol.flow {
+      counter-reset: step;
+      list-style: none;
+      margin: 1rem 0 0.5rem;
+    }
+    ol.flow li {
+      position: relative;
+      padding: 0 0 1.1rem 2.4rem;
+      color: var(--text-mid);
+    }
+    ol.flow li::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 0.1rem;
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 50%;
+      border: 1px solid var(--tag-border);
+      background: var(--tag-bg);
+      color: var(--accent);
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    ol.flow li:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      left: 0.72rem;
+      top: 1.8rem;
+      bottom: 0.2rem;
+      width: 1px;
+      background: var(--border-mid);
+    }
+
+    table.tiers {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    table.tiers th, table.tiers td {
+      text-align: left;
+      padding: 0.7rem 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    table.tiers th {
+      font-weight: 500;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      background: var(--bg3);
+    }
+    table.tiers tr:last-child td { border-bottom: none; }
+    table.tiers td.amount {
+      font-family: var(--serif);
+      color: var(--accent);
+    }
+    table.tiers td.mid {
+      color: var(--text-dim);
+      font-size: 0.88rem;
+    }
+
+    ul.plain {
+      list-style: none;
+      margin: 0.5rem 0 0.9rem;
+    }
+    ul.plain li {
+      position: relative;
+      padding: 0 0 0.55rem 1.3rem;
+      color: var(--text-mid);
+    }
+    ul.plain li::before {
+      content: "—";
+      position: absolute;
+      left: 0;
+      color: var(--accent2);
+    }
+
+    .callout {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      padding: 1rem 1.2rem;
+      margin: 1.2rem 0;
+      color: var(--text-mid);
+      font-size: 0.95rem;
+    }
+
+    footer.site {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 1.5rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-dim);
+      font-size: 0.8rem;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    footer.site a { text-decoration: none; }
+    footer.site a:hover { color: var(--accent); }
+
+    @media (max-width: 540px) {
+      header.site { flex-direction: column; gap: 0.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site">
+    <a class="brand" href="https://reqs.tech">REQS<span>.</span>TECH</a>
+    <span class="crumb">Leaf a Tip / About</span>
+  </header>
+
+  <main>
+    <span class="eyebrow">About</span>
+    <h1>Leaf a Tip</h1>
+    <p class="subtitle">A tipping platform for people whose work doesn't come with a card reader.</p>
+    <p class="meta">TYPICAL LLC &middot; leafatip.com</p>
+
+    <section>
+      <h2>The problem it started from</h2>
+      <p>Plenty of service work runs on tips. Not all of it runs on the tools built for tips. Stand behind a counter and there's a terminal that prompts for 18/20/22%. Spend three hours walking a group through something you know well and there's usually nothing &mdash; and the person who wants to thank you has to dig for cash that fewer and fewer people carry.</p>
+      <p class="mid">What fills that gap is a handle scribbled on a receipt, or a name half-heard and mistyped into an app later that night. It works often enough that nobody fixes it, and fails often enough to be worth fixing.</p>
+      <div class="callout">The guides kept getting asked "can I tip you?" and the answer was a shrug and a Venmo handle. Leaf a Tip is the better answer.</div>
+    </section>
+
+    <section>
+      <h2>What it is</h2>
+      <p>Every person on the platform gets a page at <strong>leafatip.com/theirname</strong>. They can print it as a QR code, put it in a bio, or say it out loud. Someone scans or types it, picks an amount, and sends. No app to install, and nothing to download to look at a page.</p>
+      <p class="mid">It is a tipping platform and nothing else. No product is sold through it, nothing ships, and nobody is billed on a schedule.</p>
+    </section>
+
+    <section>
+      <h2>How it works</h2>
+      <p>The whole design follows from one decision: separate paying from tipping.</p>
+      <ol class="flow">
+        <li>You buy a pack of credit with a card. This is the only card transaction in the system.</li>
+        <li>You go do the thing &mdash; the tour, the class, the service.</li>
+        <li>You scan their code or open their link.</li>
+        <li>You pick an amount, add a note if you want, and send. Your balance goes down. No card is charged.</li>
+        <li>They move the money to their bank whenever they choose.</li>
+      </ol>
+      <p class="mid">Tipping four people in one evening puts one charge on your statement, not four. That is the point of prepaying.</p>
+    </section>
+
+    <section>
+      <h2>What it costs</h2>
+      <p>Tips arrive in full. Nothing is deducted from a tip, and nothing is charged to the person receiving it.</p>
+      <p class="mid">The revenue is on the way in instead: every $5 of credit purchased carries one $1 Low Five, added on top of the credit rather than taken out of it. It appears on the purchase page before payment and is itemized on the receipt after.</p>
+      <table class="tiers">
+        <thead>
+          <tr><th>Credit Pack</th><th>Card Charge</th><th>Credit Received</th><th>Leaf a Tip</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>High Five</td><td class="amount">$6</td><td class="mid">$5</td><td class="mid">$1</td></tr>
+          <tr><td>Up High</td><td class="amount">$12</td><td class="mid">$10</td><td class="mid">$2</td></tr>
+          <tr><td>Sesh</td><td class="amount">$24</td><td class="mid">$20</td><td class="mid">$4</td></tr>
+        </tbody>
+      </table>
+      <p class="mid">That is the entire business model. No subscription, no listing fee, no percentage shaved off the top. Better to be visibly paid once than invisibly paid forever.</p>
+    </section>
+
+    <section>
+      <h2>How decisions get made</h2>
+      <ul class="plain">
+        <li><strong>Touch the card as little as possible.</strong> Prepaid credit exists so that tipping is a balance change, not a payment event.</li>
+        <li><strong>Show every number before it's committed to.</strong> The markup, the $5&ndash;$50 tip range, what lands on the other side. Surprises belong in the tip, not the fee schedule.</li>
+        <li><strong>Receiving money should be boring.</strong> No application to be approved, no minimum payout threshold, no waiting on someone's judgment about whether you're worth paying.</li>
+        <li><strong>Nothing about anyone gets sold.</strong> No advertising, no trackers, no data brokered onward. The Low Five is the whole revenue model precisely so it doesn't have to be.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Where it stands</h2>
+      <p>Built and maintained in-house at TYPICAL LLC on Next.js, Firebase, and Stripe Connect. Currently in early development with launch clients in the Kansas City market.</p>
+      <p class="mid">Interested in trying it, or in putting it in front of your own customers? <a href="mailto:hello@leafatip.com?subject=Leaf a Tip early access">hello@leafatip.com</a>.</p>
+    </section>
+  </main>
+
+  <footer class="site">
+    <span>&copy; 2026 TYPICAL LLC</span>
+    <span><a href="https://leafatip.com">leafatip.com</a> &middot; <a href="https://reqs.tech">reqs.tech</a></span>
+  </footer>
+
+</body>
+</html>
